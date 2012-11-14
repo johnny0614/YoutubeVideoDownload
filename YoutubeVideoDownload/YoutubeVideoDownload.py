@@ -17,11 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-
 import urllib
 import urllib2
 import sys
 import time
+import argparse
 from os import path
 from urlparse import parse_qs
 
@@ -42,9 +42,12 @@ class VideoInfo(object):
         elif 'v' in parse_qs(video_url).keys():
             request_url += parse_qs(video_url)['v'][0]
         else :
-            sys.exit('Error : Invalid Youtube URL Passing')
+            sys.exit('Error : Invalid Youtube URL Passing %s' % video_url)
         request = urllib2.Request(request_url)
-        self.video_info = parse_qs(urllib2.urlopen(request).read())
+        try:
+            self.video_info = parse_qs(urllib2.urlopen(request).read())
+        except URLError :
+            sys.exit('Error : Invalid Youtube URL Passing %s' % video_url)
 
 def thumbnail_url(videoinfo):
     """
@@ -121,16 +124,59 @@ def __getFileExtension(type):
         return 'flv'
     return None
 
+def __getFileType(extension):
+    if extension.lower() == 'webm':
+        return 'video/webm'
+    if extension.lower() == 'mp4':
+        return 'video/mp4'
+    if extension.lower() == '3gp':
+        return 'video/3gpp'
+    if extension.lower() == 'flv':
+        return 'video/x-flv'
+    return None
+
 def __getFileName(videoinfo, type):
     if not isinstance(videoinfo, VideoInfo):
         sys.exit('Error : method(__getFileName) invalid argument passing')
     filename = title(videoinfo)+'.'+type
     return filename
     
+def main():
+    parser = argparse.ArgumentParser(description='')
+    parser.add_argument('url', metavar='url', type=str, help='Youtube video URL string with "http://" prefixed')
+    parser.add_argument('type', metavar='type', type=str, help="Downloaded file's type ( webm || mp4 || 3gp || flv")
+    argvs = parser.parse_args()
+    url_str = argvs.url
+    type = __getFileType(argvs.type)
+    if not type:
+        sys.exit('Error : Unsupported file type %s' % argvs.type)
+
+    video_info = VideoInfo(url_str)
+    video_url_map = video_file_urls(video_info)
+    video_title = title(video_info)
+    url = ''
+
+    for entry in video_url_map:
+        entry_type = entry['type'][0]
+        entry_type = entry_type.split(';')[0]
+        if entry_type.lower() == type.lower():
+            url = entry['url']
+            break
+
+    if url == '' :
+        sys.exit('Error :')
+    
+    downloader(url, video_title+'.'+argvs.type)
+
+    sys.exit(0)
+
+if __name__ == '__main__':
+    main()
 
 
-        
-        
+            
+            
+    
     
    
     
