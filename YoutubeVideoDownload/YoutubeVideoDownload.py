@@ -24,6 +24,7 @@ import time
 import argparse
 from os import path
 from urlparse import parse_qs
+from urllib2 import URLError
 
 __author__ = (
     'Yu \'Johnny\' Zhou'
