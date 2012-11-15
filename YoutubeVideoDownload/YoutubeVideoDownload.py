@@ -143,12 +143,14 @@ def __getFileName(videoinfo, type):
     return filename
     
 def main():
+
     parser = argparse.ArgumentParser(description='YoutubeVideoDownload -- a small and simple program for downloading Youtube Video File')
     parser.add_argument('url', metavar='url', type=str, help='Youtube video URL string with "http://" prefixed')
     parser.add_argument('type', metavar='type', type=str, help="Downloaded file's type ( webm || mp4 || 3gp || flv)")
     argvs = parser.parse_args()
     url_str = argvs.url
     type = __getFileType(argvs.type)
+
     if not type:
         sys.exit('Error : Unsupported file type %s' % argvs.type)
 
@@ -168,8 +170,10 @@ def main():
         sys.exit('Error : Can not find video file\'s url')
     
     downloader(url, video_title+'.'+argvs.type)
-
+    
     sys.exit(0)
+
+
 
 if __name__ == '__main__':
     main()
