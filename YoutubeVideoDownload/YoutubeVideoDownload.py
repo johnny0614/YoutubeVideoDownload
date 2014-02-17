@@ -27,7 +27,7 @@ from urlparse import parse_qs
 from urllib2 import URLError
 
 __author__ = (
-    'Yu \'Johnny\' Zhou'
+    'YU \'Johnny\' ZHOU'
     )
     
 
