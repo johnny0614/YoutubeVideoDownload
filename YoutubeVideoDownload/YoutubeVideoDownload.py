@@ -75,7 +75,7 @@ def video_file_urls(videoinfo):
         sys.exit('Error : method(video_file_urls) invalid argument passing')
     url_encoded_fmt_stream_map = videoinfo.video_info['url_encoded_fmt_stream_map'][0].split(',')
     entrys = [parse_qs(entry) for entry in url_encoded_fmt_stream_map]
-    url_maps = [dict(url=entry['url'][0]+'&signature='+entry['sig'][0], type=entry['type']) for entry in entrys]
+    url_maps = [dict(url=entry['url'][0], type=entry['type']) for entry in entrys]
     return url_maps
 
     
