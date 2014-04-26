@@ -40,6 +40,8 @@ class VideoInfo(object):
         request_url = 'http://www.youtube.com/get_video_info?video_id='
         if 'http://www.youtube.com/watch?v' in parse_qs(video_url).keys():
             request_url += parse_qs(video_url)['http://www.youtube.com/watch?v'][0]
+	elif 'https://www.youtube.com/watch?v' in parse_qs(video_url).keys():
+	    request_url = 'https://www.youtube.com/get_video_info?video_id='+parse_qs(video_url)['https://www.youtube.com/watch?v'][0]
         elif 'v' in parse_qs(video_url).keys():
             request_url += parse_qs(video_url)['v'][0]
         else :
