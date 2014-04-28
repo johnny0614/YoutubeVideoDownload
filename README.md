@@ -1,4 +1,4 @@
-BEFORE YOU ARE GOING TO USE IT, PLEASE READ THIS POST FIRST !!!!!!!!!!!
+**BEFORE YOU ARE GOING TO USE IT, PLEASE READ THIS POST FIRST !!!!!!!!!!!**
 
 [What is copyright?](http://youtube.com/yt/copyright/what-is-copyright.html)
 
@@ -17,7 +17,7 @@ one. So it makes me write this and share on github.
 **This program is for educational purpose only. The author takes no responsibility for actions resulting from any 
 inappropriate usage**
 
-
+Usage
 
 Youtube Video Download Program -- YoutubeVideoDownload
 
